@@ -1,7 +1,11 @@
-import { Elysia } from "elysia";
+import { Elysia, t } from 'elysia';
+import userRoutes from './routes/users';
 
-const app = new Elysia().get("/", () => "Hello Elysia").listen(3000);
+const app = new Elysia()
+  .get('/', () => 'Hello from QAME')
+  .use(userRoutes)
+  .listen(process.env.APPLICATION_PORT || '3000');
 
 console.log(
-  `🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`
+  `🦊 QAME running at: http://${app.server.hostname}:${app.server.port}`
 );

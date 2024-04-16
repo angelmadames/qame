@@ -1,0 +1,84 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       Int     @id @default(autoincrement())
+  email    String  @unique
+  password String
+  name     String
+  lastName String
+  type     String
+  role     String
+  active   Boolean
+}
+
+model Account {
+  id         Int     @id @default(autoincrement())
+  desc       String
+  domainName String
+  active     Boolean
+}
+
+model Browser {
+  id     Int     @id @default(autoincrement())
+  desc   String
+  active Boolean
+}
+
+model Defect {
+  id       Int    @id @default(autoincrement())
+  desc     String
+  severity String
+}
+
+model Device {
+  id     Int     @id @default(autoincrement())
+  desc   String
+  brand  String
+  model  String
+  active Boolean
+}
+
+model Environment {
+  id     Int     @id @default(autoincrement())
+  desc   String
+  active Boolean
+}
+
+model Profile {
+  id     Int     @id @default(autoincrement())
+  desc   String
+  email  String
+  token  String
+  active Boolean
+}
+
+model TestCase {
+  id     Int    @id @default(autoincrement())
+  desc   String
+  status String
+}
+
+model TestReport {
+  id              Int     @id @default(autoincrement())
+  issueId         String
+  projectKey      String
+  project         String
+  version         String
+  build           String
+  operatingSystem String
+  regression      Boolean
+  applications    String
+  url             String
+  defects         Int
+  returned        Boolean
+  status          String
+  notes           String
+  formType        String
+}
