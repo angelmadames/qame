@@ -1,6 +1,6 @@
 import { Elysia, t } from 'elysia';
 
-export const userModel =  new Elysia()
+export const userModel = new Elysia()
   .model({
     user: t.Object({
       name: t.String(),
@@ -10,7 +10,7 @@ export const userModel =  new Elysia()
       type: t.String(),
       role: t.String(),
       active: t.Boolean(),
-    })
+    }),
   })
   .model({
     id: t.Object({

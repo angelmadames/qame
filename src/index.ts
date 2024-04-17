@@ -6,6 +6,4 @@ const app = new Elysia()
   .use(userRoutes)
   .listen(process.env.APPLICATION_PORT || '3000');
 
-console.log(
-  `🦊 QAME running at: http://${app.server.hostname}:${app.server.port}`,
-);
+console.log(`🦊 QAME running at: ${app.server?.url}`);

@@ -15,7 +15,9 @@
   "dependencies": {
     "@elysiajs/eden": "^1.0.11",
     "@prisma/client": "^5.12.1",
-    "elysia": "latest"
+    "elysia": "latest",
+    "pino": "^8.20.0",
+    "pino-pretty": "^11.0.0"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.6.4",
