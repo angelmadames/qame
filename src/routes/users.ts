@@ -1,23 +1,22 @@
 import { Elysia, t } from 'elysia';
 import UserService from '../services/user';
+import { IdDTO, UserDTO } from '../database/models';
 
 const userRoutes = new Elysia({ prefix: '/users' })
   .get('/', () => UserService.getAll())
-  .get('/:id', ({ params: { id } }) => UserService.getOne(id), {
-    params: t.Object({
-      id: t.Numeric(),
-    }),
-  })
-  .post('/add', ({ body }) => UserService.addOne(body), {
-    body: t.Object({
-      name: t.String(),
-      lastName: t.String(),
-      email: t.String({ format: "email" }),
-      password: t.String(),
-      type: t.String(),
-      role: t.String(),
-      active: t.Boolean(),
-    })
-  });
+  .get(
+    '/:id',
+    ({ params: { id } }) => UserService.getOne(id),
+    { params: IdDTO, }
+  )
+  .post(
+    '/add', ({ body }) => UserService.addOne(body),
+    { body: UserDTO }
+  )
+  .put(
+    '/update/:id',
+    ({ params: { id }, body }) => UserService.updateOne(id, body),
+    { params: IdDTO, body: UserDTO, },
+  );
 
 export default userRoutes;

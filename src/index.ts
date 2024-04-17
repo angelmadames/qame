@@ -7,5 +7,5 @@ const app = new Elysia()
   .listen(process.env.APPLICATION_PORT || '3000');
 
 console.log(
-  `🦊 QAME running at: http://${app.server.hostname}:${app.server.port}`
+  `🦊 QAME running at: http://${app.server.hostname}:${app.server.port}`,
 );

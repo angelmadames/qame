@@ -15,8 +15,16 @@ const UserService = {
   addOne(user: Omit<User, 'id'>) {
     return db.user.create({
       data: user,
-    })
-  }
+    });
+  },
+  updateOne(id: number, user: Partial<User>) {
+    return db.user.update({
+      where: {
+        id: id,
+      },
+      data: user,
+    });
+  },
 };
 
 export default UserService;
