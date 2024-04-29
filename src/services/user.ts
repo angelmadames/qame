@@ -17,10 +17,12 @@ const UserService = {
     });
   },
 
-  addOne(user: Omit<User, 'id'>) {
-    return db.user.create({
+  async addOne(user: Omit<User, 'id'>) {
+    const createdUser = await db.user.create({
       data: user,
     });
+    logger.info(`User '${user.name} <${user.email}>' created with ID '${createdUser.id}'.`);
+    return createdUser;
   },
 
   updateOne(id: number, user: Partial<User>) {

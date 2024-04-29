@@ -6,7 +6,7 @@ const deviceRoutes = new Elysia({ prefix: '/devices' })
   .use(deviceModel)
   .get('/', () => DeviceService.getAll())
   .get('/:id', ({ params: { id } }) => DeviceService.getOne(id), { params: 'id' })
-  .post('/add', ({ body }) => DeviceService.addOne(body), { body: 'device' })
+  .post('/add', async ({ body }) => await DeviceService.addOne(body), { body: 'device' })
   .put(
     '/update/:id',
     ({ params: { id }, body }) => DeviceService.updateOne(id, body),

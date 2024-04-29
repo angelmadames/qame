@@ -6,7 +6,7 @@ const userRoutes = new Elysia({ prefix: '/users' })
   .use(userModel)
   .get('/', () => UserService.getAll())
   .get('/:id', ({ params: { id } }) => UserService.getOne(id), { params: 'id' })
-  .post('/add', ({ body }) => UserService.addOne(body), { body: 'user' })
+  .post('/add', async ({ body }) => await UserService.addOne(body), { body: 'user' })
   .put(
     '/update/:id',
     ({ params: { id }, body }) => UserService.updateOne(id, body),

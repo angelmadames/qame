@@ -17,18 +17,20 @@ const DeviceService = {
     });
   },
 
-  addOne(device: Omit<Device, 'id'>) {
-    return db.device.create({
+  async addOne(device: Omit<Device, 'id'>) {
+    const createdDevice = await db.device.create({
       data: device,
     });
+    logger.info(`Device '${device.desc}' created with ID '${createdDevice.id}'.`);
+    return createdDevice;
   },
 
-  updateOne(id: number, user: Partial<Device>) {
-    return db.user.update({
+  updateOne(id: number, device: Partial<Device>) {
+    return db.device.update({
       where: {
         id: id,
       },
-      data: user,
+      data: device,
     });
   },
 
@@ -43,7 +45,7 @@ const DeviceService = {
     } catch (error) {
       logger.error(formatLog((error as PrismaClientKnownRequestError).message));
       throw new NotFoundError(
-        `User with id '${id}' could not be found or deleted.\nCheck system logs for more details.`,
+        `Device with id '${id}' could not be found or deleted.\nCheck system logs for more details.`,
       );
     }
 
