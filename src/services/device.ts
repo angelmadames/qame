@@ -21,7 +21,7 @@ const DeviceService = {
     const createdDevice = await db.device.create({
       data: device,
     });
-    logger.info(`Device '${device.desc}' created with ID '${createdDevice.id}'.`);
+    logger.info(`Device '${device.name}' created with ID '${createdDevice.id}'.`);
     return createdDevice;
   },
 

@@ -1,42 +1,18 @@
 import logger, { formatLog } from '../utils/logger';
+import { seedUsers } from './seeders/users';
+import db from './client';
+import { seedDevices } from './seeders/devices';
 
 logger.info('Creating database client...')
-import db from './client';
+await db.$connect();
 logger.info('Database client successfully created and connected.')
 
-async function main() {
-  const john = await db.user.upsert({
-    where: { email: 'john.doe@qame.io' },
-    update: {},
-    create: {
-      name: 'John',
-      lastName: 'Doe',
-      email: 'john.doe@qame.io',
-      password: 'agoodpasswordshouldnotbelikethis',
-      type: 'user',
-      role: 'admin',
-      active: true,
-    },
-  })
-  logger.info(`Added seed user: ${john.email}.`);
-
-  const jane = await db.user.upsert({
-    where: { email: 'jane.doe@qame.io' },
-    update: {},
-    create: {
-      name: 'Jane',
-      lastName: 'Doe',
-      email: 'jane.doe@qame.io',
-      password: 'agoodpasswordshouldnotbelikethis',
-      type: 'user',
-      role: 'admin',
-      active: true,
-    },
-  })
-  logger.info(`Added seed user: ${jane.email}.`);
+async function databaseSeeders() {
+  await seedUsers(db);
+  await seedDevices(db);
 }
 
-await main();
+await databaseSeeders();
 
 try {
   await db.$disconnect();

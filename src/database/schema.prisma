@@ -39,7 +39,7 @@ model Defect {
 
 model Device {
   id     Int     @id @default(autoincrement())
-  desc   String
+  name   String  @unique
   brand  String
   model  String
   active Boolean
