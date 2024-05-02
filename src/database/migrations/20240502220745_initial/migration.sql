@@ -13,7 +13,7 @@ CREATE TABLE "User" (
 -- CreateTable
 CREATE TABLE "Account" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    "desc" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
     "domainName" TEXT NOT NULL,
     "active" BOOLEAN NOT NULL
 );
@@ -21,21 +21,21 @@ CREATE TABLE "Account" (
 -- CreateTable
 CREATE TABLE "Browser" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    "desc" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
     "active" BOOLEAN NOT NULL
 );
 
 -- CreateTable
 CREATE TABLE "Defect" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    "desc" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
     "severity" TEXT NOT NULL
 );
 
 -- CreateTable
 CREATE TABLE "Device" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    "desc" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
     "brand" TEXT NOT NULL,
     "model" TEXT NOT NULL,
     "active" BOOLEAN NOT NULL
@@ -44,14 +44,14 @@ CREATE TABLE "Device" (
 -- CreateTable
 CREATE TABLE "Environment" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    "desc" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
     "active" BOOLEAN NOT NULL
 );
 
 -- CreateTable
 CREATE TABLE "Profile" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    "desc" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "token" TEXT NOT NULL,
     "active" BOOLEAN NOT NULL
@@ -60,7 +60,7 @@ CREATE TABLE "Profile" (
 -- CreateTable
 CREATE TABLE "TestCase" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    "desc" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
     "status" TEXT NOT NULL
 );
 
@@ -85,3 +85,6 @@ CREATE TABLE "TestReport" (
 
 -- CreateIndex
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Device_name_key" ON "Device"("name");

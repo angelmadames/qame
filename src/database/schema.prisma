@@ -20,20 +20,20 @@ model User {
 
 model Account {
   id         Int     @id @default(autoincrement())
-  desc       String
+  name       String
   domainName String
   active     Boolean
 }
 
 model Browser {
   id     Int     @id @default(autoincrement())
-  desc   String
+  name   String
   active Boolean
 }
 
 model Defect {
   id       Int    @id @default(autoincrement())
-  desc     String
+  name     String
   severity String
 }
 
@@ -47,13 +47,13 @@ model Device {
 
 model Environment {
   id     Int     @id @default(autoincrement())
-  desc   String
+  name   String
   active Boolean
 }
 
 model Profile {
   id     Int     @id @default(autoincrement())
-  desc   String
+  name   String
   email  String
   token  String
   active Boolean
@@ -61,7 +61,7 @@ model Profile {
 
 model TestCase {
   id     Int    @id @default(autoincrement())
-  desc   String
+  name   String
   status String
 }
 
