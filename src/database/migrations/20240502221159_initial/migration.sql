@@ -87,4 +87,19 @@ CREATE TABLE "TestReport" (
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "Account_name_key" ON "Account"("name");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Browser_name_key" ON "Browser"("name");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "Device_name_key" ON "Device"("name");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Environment_name_key" ON "Environment"("name");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Profile_email_key" ON "Profile"("email");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "TestCase_name_key" ON "TestCase"("name");

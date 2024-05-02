@@ -20,14 +20,14 @@ model User {
 
 model Account {
   id         Int     @id @default(autoincrement())
-  name       String
+  name       String  @unique
   domainName String
   active     Boolean
 }
 
 model Browser {
   id     Int     @id @default(autoincrement())
-  name   String
+  name   String  @unique
   active Boolean
 }
 
@@ -47,21 +47,21 @@ model Device {
 
 model Environment {
   id     Int     @id @default(autoincrement())
-  name   String
+  name   String  @unique
   active Boolean
 }
 
 model Profile {
   id     Int     @id @default(autoincrement())
   name   String
-  email  String
+  email  String  @unique
   token  String
   active Boolean
 }
 
 model TestCase {
   id     Int    @id @default(autoincrement())
-  name   String
+  name   String @unique
   status String
 }
 
