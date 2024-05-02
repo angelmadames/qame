@@ -1,11 +1,11 @@
 import logger, { formatLog } from '../utils/logger';
-import { seedUsers } from './seeders/users';
 import db from './client';
 import { seedDevices } from './seeders/devices';
+import { seedUsers } from './seeders/users';
 
-logger.info('Creating database client...')
+logger.info('Creating database client...');
 await db.$connect();
-logger.info('Database client successfully created and connected.')
+logger.info('Database client successfully created and connected.');
 
 async function databaseSeeders() {
   await seedUsers(db);
@@ -20,4 +20,4 @@ try {
 } catch (e) {
   logger.error(formatLog(`Could not disconnect client from database.\n${e}`));
   process.exit(1);
-};
+}

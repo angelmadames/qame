@@ -1,5 +1,5 @@
-import { PrismaClient } from "@prisma/client";
-import logger from "../../utils/logger";
+import { PrismaClient } from '@prisma/client';
+import logger from '../../utils/logger';
 
 export const seedUsers = async (db: PrismaClient) => {
   const john = await db.user.upsert({
@@ -14,7 +14,7 @@ export const seedUsers = async (db: PrismaClient) => {
       role: 'admin',
       active: true,
     },
-  })
+  });
   logger.info(`Added seed user: ${john.email}.`);
 
   const jane = await db.user.upsert({
@@ -29,6 +29,6 @@ export const seedUsers = async (db: PrismaClient) => {
       role: 'admin',
       active: true,
     },
-  })
+  });
   logger.info(`Added seed user: ${jane.email}.`);
 };

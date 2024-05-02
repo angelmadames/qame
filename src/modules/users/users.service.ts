@@ -1,10 +1,10 @@
 import { User } from '@prisma/client';
-import db from '../database/client';
-import { NotFoundError } from 'elysia';
 import { type PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
-import logger, { formatLog } from '../utils/logger';
+import { NotFoundError } from 'elysia';
+import db from '../../database/client';
+import logger, { formatLog } from '../../utils/logger';
 
-const UserService = {
+export const userService = {
   getAll() {
     return db.user.findMany();
   },
@@ -21,7 +21,9 @@ const UserService = {
     const createdUser = await db.user.create({
       data: user,
     });
-    logger.info(`User '${user.name} <${user.email}>' created with ID '${createdUser.id}'.`);
+    logger.info(
+      `User '${user.name} <${user.email}>' created with ID '${createdUser.id}'.`,
+    );
     return createdUser;
   },
 
@@ -55,4 +57,4 @@ const UserService = {
   },
 };
 
-export default UserService;
+export default userService;

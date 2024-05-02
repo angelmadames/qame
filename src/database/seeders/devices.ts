@@ -1,5 +1,5 @@
-import { PrismaClient } from "@prisma/client";
-import logger from "../../utils/logger";
+import { PrismaClient } from '@prisma/client';
+import logger from '../../utils/logger';
 
 export const seedDevices = async (db: PrismaClient) => {
   const iPhone11 = await db.device.upsert({
@@ -11,7 +11,7 @@ export const seedDevices = async (db: PrismaClient) => {
       model: '11',
       active: true,
     },
-  })
+  });
   logger.info(`Added seed device: ${iPhone11.name}.`);
   const iPhone12 = await db.device.upsert({
     where: { name: 'iPhone 12' },
@@ -22,6 +22,6 @@ export const seedDevices = async (db: PrismaClient) => {
       model: '12',
       active: true,
     },
-  })
+  });
   logger.info(`Added seed device: ${iPhone12.name}.`);
 };

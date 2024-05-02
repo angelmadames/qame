@@ -1,7 +1,7 @@
-import { Elysia, } from 'elysia';
-import userRoutes from './routes/users';
+import { Elysia } from 'elysia';
+import deviceRoutes from './modules/devices/devices.routes';
+import userRoutes from './modules/users/users.routes';
 import logger from './utils/logger';
-import deviceRoutes from './routes/device';
 
 const app = new Elysia()
   .get('/', () => 'Hello from QAME')

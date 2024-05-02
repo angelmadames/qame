@@ -1,10 +1,10 @@
 import { Device } from '@prisma/client';
-import db from '../database/client';
-import { NotFoundError } from 'elysia';
 import { type PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
-import logger, { formatLog } from '../utils/logger';
+import { NotFoundError } from 'elysia';
+import db from '../../database/client';
+import logger, { formatLog } from '../../utils/logger';
 
-const DeviceService = {
+export const deviceService = {
   getAll() {
     return db.device.findMany();
   },
@@ -21,7 +21,9 @@ const DeviceService = {
     const createdDevice = await db.device.create({
       data: device,
     });
-    logger.info(`Device '${device.name}' created with ID '${createdDevice.id}'.`);
+    logger.info(
+      `Device '${device.name}' created with ID '${createdDevice.id}'.`,
+    );
     return createdDevice;
   },
 
@@ -50,9 +52,9 @@ const DeviceService = {
     }
 
     return {
-      message: `Device ${deletedDevice.desc} <${deletedDevice.id}> deleted.`,
+      message: `Device ${deletedDevice.name} <${deletedDevice.id}> deleted.`,
     };
   },
 };
 
-export default DeviceService;
+export default deviceService;
