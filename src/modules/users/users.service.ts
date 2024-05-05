@@ -9,7 +9,7 @@ export const userService = {
     return db.user.findMany();
   },
 
-  getOne(id: number) {
+  getOne(id: string) {
     return db.user.findUnique({
       where: {
         id: id,
@@ -27,7 +27,7 @@ export const userService = {
     return createdUser;
   },
 
-  updateOne(id: number, user: Partial<User>) {
+  updateOne(id: string, user: Partial<User>) {
     return db.user.update({
       where: {
         id: id,
@@ -36,7 +36,7 @@ export const userService = {
     });
   },
 
-  async deleteOne(id: number) {
+  async deleteOne(id: string) {
     let deletedUser: User;
     try {
       deletedUser = await db.user.delete({

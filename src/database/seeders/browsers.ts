@@ -2,31 +2,56 @@ import { PrismaClient } from '@prisma/client';
 import logger from '../../utils/logger';
 
 export const seedBrowsers = async (db: PrismaClient) => {
-  const chrome = await db.browser.upsert({
-    where: { name: 'Google Chrome' },
-    update: {},
-    create: {
-      name: 'Google Chrome',
-      active: true,
+  const browsers = [
+    {
+      engine: 'WebKit',
+      browsers: ['Safari', 'GNOME Web', 'Konqueror'],
     },
-  });
-  logger.info(`Added seed browser: ${chrome.name}.`);
-  const firefox = await db.browser.upsert({
-    where: { name: 'Mozilla Firefox' },
-    update: {},
-    create: {
-      name: 'Mozilla Firefox',
-      active: true,
+    {
+      engine: 'Blink',
+      browsers: [
+        'Google Chrome',
+        'Chromium',
+        'Microsoft Edge',
+        'Brave',
+        'Vivaldi',
+        'Opera',
+        'Arc',
+        'Samsung Internet',
+      ],
     },
-  });
-  logger.info(`Added seed browser: ${firefox.name}.`);
-  const arc = await db.browser.upsert({
-    where: { name: 'Arc' },
-    update: {},
-    create: {
-      name: 'Arc',
-      active: true,
+    {
+      engine: 'Gecko',
+      browsers: ['Firefox'],
     },
-  });
-  logger.info(`Added seed browser: ${arc.name}.`);
+    {
+      engine: 'Goanna',
+      browsers: ['Pale Moon', 'K-Meleon', 'Basilisk'],
+    },
+  ];
+
+  for (const browser of browsers) {
+    const browserEngineId = await db.browserEngine.findUnique({
+      where: { name: browser.engine },
+    });
+
+    if (browserEngineId == null) {
+      logger.error(
+        `Could not find matching engine ${browser.engine} in the database.`,
+      );
+      process.exit(1);
+    }
+
+    for (const name of browser.browsers) {
+      await db.browser.upsert({
+        where: { name },
+        update: {},
+        create: {
+          name,
+          browserEngineId: browserEngineId.id,
+        },
+      });
+      logger.info(`Added seed browser: ${browser.engine} / ${name}.`);
+    }
+  }
 };

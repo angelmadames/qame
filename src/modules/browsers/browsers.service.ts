@@ -9,10 +9,18 @@ export const browserService = {
     return db.browser.findMany();
   },
 
-  getOne(id: number) {
+  getOneById(id: string) {
     return db.browser.findUnique({
       where: {
         id: id,
+      },
+    });
+  },
+
+  getOneByName(name: string) {
+    return db.browser.findUnique({
+      where: {
+        name: name,
       },
     });
   },
@@ -27,7 +35,7 @@ export const browserService = {
     return createdBrowser;
   },
 
-  updateOne(id: number, browser: Partial<Browser>) {
+  updateOne(id: string, browser: Partial<Browser>) {
     return db.browser.update({
       where: {
         id: id,
@@ -36,7 +44,7 @@ export const browserService = {
     });
   },
 
-  async deleteOne(id: number) {
+  async deleteOne(id: string) {
     let deletedBrowser: Browser;
     try {
       deletedBrowser = await db.browser.delete({

@@ -5,8 +5,11 @@ import { browserService } from './browsers.service';
 const browserRoutes = new Elysia({ prefix: '/browsers' })
   .use(browserModel)
   .get('/', () => browserService.getAll())
-  .get('/:id', ({ params: { id } }) => browserService.getOne(id), {
+  .get('/:id', ({ params: { id } }) => browserService.getOneById(id), {
     params: 'id',
+  })
+  .get('/:id', ({ params: { name } }) => browserService.getOneByName(name), {
+    params: 'name',
   })
   .post('/add', async ({ body }) => await browserService.addOne(body), {
     body: 'browser',

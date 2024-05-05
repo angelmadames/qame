@@ -11,6 +11,6 @@ export const deviceModel = new Elysia()
   })
   .model({
     id: t.Object({
-      id: t.Numeric(),
+      id: t.String(),
     }),
   });

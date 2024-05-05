@@ -8,7 +8,7 @@ datasource db {
 }
 
 model User {
-  id       Int     @id @default(autoincrement())
+  id       String  @id @default(uuid())
   email    String  @unique
   password String
   name     String
@@ -18,67 +18,34 @@ model User {
   active   Boolean
 }
 
-model Account {
-  id         Int     @id @default(autoincrement())
-  name       String  @unique
-  domainName String
-  active     Boolean
+model BrowserEngine {
+  id       String    @id @default(uuid())
+  name     String    @unique
+  browsers Browser[]
 }
 
 model Browser {
-  id     Int     @id @default(autoincrement())
-  name   String  @unique
-  active Boolean
+  id              String        @id @default(uuid())
+  name            String        @unique
+  browserEngineId String
+  browserEngine   BrowserEngine @relation(fields: [browserEngineId], references: [id])
 }
 
-model Defect {
-  id       Int    @id @default(autoincrement())
-  name     String
-  severity String
+model DeviceBrand {
+  id      String   @id @default(uuid())
+  name    String   @unique
+  devices Device[]
 }
 
 model Device {
-  id     Int     @id @default(autoincrement())
-  name   String  @unique
-  brand  String
-  model  String
-  active Boolean
+  id            String      @id @default(uuid())
+  name          String      @unique
+  brand         DeviceBrand @relation(fields: [deviceBrandId], references: [id])
+  model         String
+  deviceBrandId String
 }
 
-model Environment {
-  id     Int     @id @default(autoincrement())
-  name   String  @unique
-  active Boolean
-}
-
-model Profile {
-  id     Int     @id @default(autoincrement())
-  name   String
-  email  String  @unique
-  token  String
-  active Boolean
-}
-
-model TestCase {
-  id     Int    @id @default(autoincrement())
-  name   String @unique
-  status String
-}
-
-model TestReport {
-  id              Int     @id @default(autoincrement())
-  issueId         String
-  projectKey      String
-  project         String
-  version         String
-  build           String
-  operatingSystem String
-  regression      Boolean
-  applications    String
-  url             String
-  defects         Int
-  returned        Boolean
-  status          String
-  notes           String
-  formType        String
+model ApplicationEnvironment {
+  id   String @id @default(uuid())
+  name String @unique
 }

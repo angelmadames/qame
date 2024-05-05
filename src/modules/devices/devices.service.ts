@@ -9,7 +9,7 @@ export const deviceService = {
     return db.device.findMany();
   },
 
-  getOne(id: number) {
+  getOne(id: string) {
     return db.device.findUnique({
       where: {
         id: id,
@@ -27,7 +27,7 @@ export const deviceService = {
     return createdDevice;
   },
 
-  updateOne(id: number, device: Partial<Device>) {
+  updateOne(id: string, device: Partial<Device>) {
     return db.device.update({
       where: {
         id: id,
@@ -36,7 +36,7 @@ export const deviceService = {
     });
   },
 
-  async deleteOne(id: number) {
+  async deleteOne(id: string) {
     let deletedDevice: Device;
     try {
       deletedDevice = await db.device.delete({

@@ -9,7 +9,7 @@ export const environmentService = {
     return db.environment.findMany();
   },
 
-  getOne(id: number) {
+  getOne(id: string) {
     return db.environment.findUnique({
       where: {
         id: id,
@@ -27,7 +27,7 @@ export const environmentService = {
     return createdBrowser;
   },
 
-  updateOne(id: number, environment: Partial<Environment>) {
+  updateOne(id: string, environment: Partial<Environment>) {
     return db.environment.update({
       where: {
         id: id,
@@ -36,7 +36,7 @@ export const environmentService = {
     });
   },
 
-  async deleteOne(id: number) {
+  async deleteOne(id: string) {
     let deletedEnvironment: Environment;
     try {
       deletedEnvironment = await db.environment.delete({
