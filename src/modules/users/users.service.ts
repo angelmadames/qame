@@ -9,10 +9,32 @@ export const userService = {
     return db.user.findMany();
   },
 
-  getOne(id: string) {
+  getOneById(id: string) {
     return db.user.findUnique({
+      select: {
+        name: true,
+        lastName: true,
+        email: true,
+        type: true,
+        role: true,
+      },
       where: {
         id: id,
+      },
+    });
+  },
+
+  getOneByEmail(email: string) {
+    return db.user.findUnique({
+      select: {
+        name: true,
+        lastName: true,
+        email: true,
+        type: true,
+        role: true,
+      },
+      where: {
+        email,
       },
     });
   },
