@@ -9,7 +9,7 @@ export const environmentService = {
     return db.applicationEnvironment.findMany();
   },
 
-  getOne(id: string) {
+  getOneById(id: string) {
     return db.applicationEnvironment.findUnique({
       where: {
         id: id,
@@ -18,22 +18,34 @@ export const environmentService = {
   },
 
   async addOne(environment: Omit<ApplicationEnvironment, 'id'>) {
-    const createdBrowser = await db.applicationEnvironment.create({
+    const createdEnv = await db.applicationEnvironment.create({
       data: environment,
     });
     logger.info(
-      `Browser '${environment.name}' created with ID '${createdBrowser.id}'.`,
+      `Environment '${environment.name}' created with ID '${createdEnv.id}'.`,
     );
-    return createdBrowser;
+    return createdEnv;
   },
 
-  updateOne(id: string, environment: Partial<ApplicationEnvironment>) {
-    return db.applicationEnvironment.update({
-      where: {
-        id: id,
-      },
-      data: environment,
-    });
+  async updateOne(id: string, environment: Partial<ApplicationEnvironment>) {
+    let updatedEnvironment: ApplicationEnvironment;
+    try {
+      updatedEnvironment = await db.applicationEnvironment.update({
+        where: {
+          id: id,
+        },
+        data: environment,
+      });
+      logger.info(`Environment with ID '${updatedEnvironment.id}' updated with new name: ${environment.name}.`);
+      return {
+        message: `Environment ${updatedEnvironment.id} updated with new name: ${environment.name}.`
+      };
+    } catch (error) {
+      logger.error(formatLog((error as PrismaClientKnownRequestError).message));
+      throw new NotFoundError(
+        `Environment with ID '${id}' could not updated.\nCheck system logs for more details.`,
+      );
+    }
   },
 
   async deleteOne(id: string) {
@@ -44,15 +56,16 @@ export const environmentService = {
           id: id,
         },
       });
+      logger.info(`Environment '${deletedEnvironment.name}' <${deletedEnvironment.id}> deleted.`);
     } catch (error) {
       logger.error(formatLog((error as PrismaClientKnownRequestError).message));
       throw new NotFoundError(
-        `Environment with id '${id}' could not be found or deleted.\nCheck system logs for more details.`,
+        `Environment with ID '${id}' could not be found or deleted.\nCheck system logs for more details.`,
       );
     }
 
     return {
-      message: `Environment ${deletedEnvironment.name} <${deletedEnvironment.id}> deleted.`,
+      message: `Environment '${deletedEnvironment.name}' deleted.`,
     };
   },
 };

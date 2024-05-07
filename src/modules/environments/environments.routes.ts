@@ -5,22 +5,22 @@ import { environmentService } from './environments.service';
 const environmentRoutes = new Elysia({ prefix: '/environments' })
   .use(environmentModel)
   .get('/', () => environmentService.getAll())
-  .get('/:id', ({ params: { id } }) => environmentService.getOne(id), {
-    params: 'id',
+  .get('/:id', ({ params: { id } }) => environmentService.getOneById(id), {
+    params: 'environment.id',
   })
   .post('/add', async ({ body }) => await environmentService.addOne(body), {
-    body: 'environment',
+    body: 'environment.name',
   })
   .put(
     '/update/:id',
     ({ params: { id }, body }) => environmentService.updateOne(id, body),
-    { params: 'id', body: 'environment' },
+    { params: 'environment.id', body: 'environment.name' },
   )
   .delete(
     '/delete/:id',
     ({ params: { id } }) => environmentService.deleteOne(id),
     {
-      params: 'id',
+      params: 'environment.id',
     },
   );
 
